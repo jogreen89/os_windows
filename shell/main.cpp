@@ -2,6 +2,22 @@
 #include <stdlib.h>
 #include <string.h>
 
+void validate_input(char *line, char **argv)
+{
+	while (*line != '\0')
+	{
+		while (*line == ' ' || *line == '\t' || *line == '\n')
+		{
+			*line++ = '\0';
+		}
+		*argv++ = line;
+		while (*line != '\0' && *line != ' ' && *line != '\n')
+		{
+			line++;
+		}
+	}
+}
+
 int main(int argc, char **argv)
 {
 	char line[1024];
@@ -11,29 +27,25 @@ int main(int argc, char **argv)
 	{
 		printf("osh> ");
 		gets_s(line);
-		parse(line, argv);
+		validate_input(line, argv);
+		printf("DEBUG");
 
 		if (strcmp(argv[0], "exit"))
 		{
 			exit(0);
 		}
-		else if (strcmp(argv[0], "!!"))
+		else
 		{
-			
+			printf("Okay");
+			// launch_osh(argv);
 		}
 		
 	}
 }
 
-int parse(char *line, char **argv)
-{
-	while (*line != '\0')
-	{
-		// while (*line == ' ' || *line == '\t' || *line == '\n'
-	}
-}
-
+/*
 void launch_osh(char **argv)
 {
-	pid
+	// pid
 }
+*/
